@@ -3,9 +3,14 @@ import win32gui
 import cv2
 import numpy as np
 
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QWidget
 from PyQt5.QtGui import *
 import sys
+
+class MainWidget(QWidget):
+    def __init__(self):
+        super().__init__()
+        self.show()
 
 class Timer(object):
     def __init__(self) -> None:
@@ -36,6 +41,9 @@ for key, value in hwnd_title.items():
         break
 
 app = QApplication(sys.argv)
+window = MainWidget()
+window.show()
+
 screen = QApplication.primaryScreen()
 
 timer = Timer()
@@ -49,3 +57,5 @@ for _ in range(10):
     timer.record()
     print(timer, img.shape)
 cv2.imwrite('test.png', img)
+
+sys.exec(app.exec())
